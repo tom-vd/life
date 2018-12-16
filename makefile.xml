@@ -1,0 +1,87 @@
+<obj type="makefile" DefaultTarget="all">
+	<variables type="dictionary">
+		<make type="string">dmake</make>
+		<OverrideWD type="string">true</OverrideWD>
+		<wd type="string">E:\OneDrive\Documenten\C++\Life\program</wd>
+
+		<CXXFLAGS type="string">-ggdb -Wall -Wextra -lstdc++ -IE:\OneDrive\Libraries\Include</CXXFLAGS>
+		<GCCDIR type="string">E:\MinGW\bin</GCCDIR>
+
+		<MSYSDIR type="string">E:\MinGW\msys\1.0\bin</MSYSDIR>
+		<RM type="string">!MSYSDIR!\rm.exe</RM>
+	</variables>
+	<commands type="dictionary">
+		<main.o type="command">
+			<dependencies type="array.string" format="ArrayElement{0}" />
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!GCCDIR!\gcc.exe</ExeName>
+					<args type="string">-c main.cpp -o main.o !CXXFLAGS!</args>
+				</ArrayElement0>
+			</run>
+		</main.o>
+		<game.o type="command">
+			<dependencies type="array.string" format="ArrayElement{0}" />
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!GCCDIR!\gcc.exe</ExeName>
+					<args type="string">-c game.cpp -o game.o !CXXFLAGS!</args>
+				</ArrayElement0>
+			</run>
+		</game.o>
+		<link type="command">
+			<dependencies type="array.string" format="ArrayElement{0}" />
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!GCCDIR!\gcc.exe</ExeName>
+					<args type="string">game.o main.o -o life.exe !CXXFLAGS!</args>
+				</ArrayElement0>
+			</run>
+		</link>
+		<all type="command">
+			<dependencies type="array.string" format="ArrayElement{0}">
+				<ArrayElement0 type="string">main.o</ArrayElement0>
+				<ArrayElement0 type="string">game.o</ArrayElement0>
+			</dependencies>
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!make!</ExeName>
+					<args type="string">link</args>
+				</ArrayElement0>
+			</run>
+		</all>
+		<debug type="command">
+			<dependencies type="array.string" format="ArrayElement{0}" />
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!GCCDIR!\gdb.exe</ExeName>
+					<args type="string"></args>
+				</ArrayElement0>
+			</run>
+		</debug>
+		<clean type="command">
+			<dependencies type="array.string" format="ArrayElement{0}" />
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!RM!</ExeName>
+					<args type="string">/f main.o</args>
+				</ArrayElement0>
+				<ArrayElement1 type="ProcessStartInfo">
+					<ExeName type="string">!RM!</ExeName>
+					<args type="string">/f game.o</args>
+				</ArrayElement1>
+			</run>
+		</clean>
+		<realclean type="command">
+			<dependencies type="array.string" format="ArrayElement{0}">
+				<ArrayElement0 type="string">clean</ArrayElement0>
+			</dependencies>
+			<run type="array.ProcessStartInfo" format="ArrayElement{0}">
+				<ArrayElement0 type="ProcessStartInfo">
+					<ExeName type="string">!RM!</ExeName>
+					<args type="string">/f life.exe</args>
+				</ArrayElement0>
+			</run>
+		</realclean>
+	</commands>
+</obj>
